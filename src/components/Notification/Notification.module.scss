@@ -1,0 +1,75 @@
+@use '@/styles/abstract/variables';
+@use '@/styles/abstract/mixins';
+
+.Notification {
+    background: rgba(10, 10, 10, 0.77);
+    color: variables.$color-white;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .25), 0 0 2px rgba(0, 0, 0, .25);
+    margin-bottom: 16px;
+    max-width: 366px;
+    opacity: 1;
+    position: relative;
+    transition: .3s all ease-in-out;
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+
+    &__Success {
+        border-left: 10px solid variables.$color-green-dark;
+    }
+
+    &__Error {
+        border-left: 10px solid variables.$color-red-dark;
+    }
+
+    &__Warning {
+        border-left: 10px solid variables.$color-orange;
+    }
+
+    &__Info {
+        border-left: 6px solid variables.$color-blue;
+        max-width: 366px;
+    }
+
+    &__Message {
+        display: flex;
+        padding: 16px 50px 16px 16px;
+
+        span {
+            font-size: 1.4rem;
+
+            a {
+                color: variables.$color-blue;
+                font-weight: variables.$fw-medium;
+                font-size: 1.4rem;
+            }
+        }
+    }
+
+    &__CloseButton {
+        position: absolute;
+        background-size: 12px;
+        background: url('/cross.svg') no-repeat 6px 6px;
+        right: 16px;
+        top: calc(50% - 12px);
+        height: 24px;
+        width: 24px;
+        transition: .3s ease-in-out;
+
+        &:hover {
+            cursor: pointer;
+            transform: rotate(360deg);
+        }
+    }
+
+    &__Link {
+        display: block;
+        cursor: pointer;
+    }
+
+    &_closing {
+        opacity: 0;
+    }
+}

@@ -1,0 +1,41 @@
+@use './../abstract/variables';
+
+@font-face {
+    font-family: variables.$font-space-grotesk;
+    font-style: normal;
+    font-weight: variables.$fw-light;
+    font-display: swap;
+    src: url("SpaceGrotesk-Light.ttf");
+}
+
+@font-face {
+    font-family: variables.$font-space-grotesk;
+    font-style: normal;
+    font-weight: variables.$fw-regular;
+    font-display: swap;
+    src: url("SpaceGrotesk-Regular.ttf");
+}
+
+@font-face {
+    font-family: variables.$font-space-grotesk;
+    font-style: normal;
+    font-weight: variables.$fw-medium;
+    font-display: swap;
+    src: url("SpaceGrotesk-Medium.ttf");
+}
+
+@font-face {
+    font-family: variables.$font-space-grotesk;
+    font-style: normal;
+    font-weight: variables.$fw-demi;
+    font-display: swap;
+    src: url("SpaceGrotesk-SemiBold.ttf");
+}
+
+@font-face {
+    font-family: variables.$font-space-grotesk;
+    font-style: normal;
+    font-weight: variables.$fw-bold;
+    font-display: swap;
+    src: url("SpaceGrotesk-Bold.ttf");
+}

@@ -1,0 +1,18 @@
+@use '@/styles/abstract/variables';
+@use '@/styles/abstract/mixins';
+
+.Notifications {
+    @include mixins.main-width;
+
+    z-index: 100;
+
+    &__List {
+        position: fixed;
+        top: 120px;
+        right: 16px;
+
+        @include mixins.wide-desktop {
+            right: 30px;
+        }
+    }
+}

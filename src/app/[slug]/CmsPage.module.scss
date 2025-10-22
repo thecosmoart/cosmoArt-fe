@@ -1,0 +1,14 @@
+@use '@/styles/abstract/variables';
+@use '@/styles/abstract/mixins';
+
+.CmsPage {
+    @include mixins.main-width;
+
+    &__Wrapper {
+        padding: 0 16px 250px;
+    }
+
+    &__Background {
+        z-index: -2;
+    }
+}
