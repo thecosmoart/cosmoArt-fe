@@ -1,3 +1,24 @@
-.Header {
+@use '@/styles/abstract/variables';
+@use '@/styles/abstract/mixins';
 
+.Header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    background: variables.$color-deep-cove;
+    border-bottom: 1px solid variables.$color-athens-grey;
+    padding: 6px 16px;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 100;
+
+    &__Wrapper {
+        align-items: center;
+        display: flex;
+
+        @include mixins.main-width();
+
+        @include mixins.after-mobile {
+            justify-content: space-between;
+        }
+    }
 }

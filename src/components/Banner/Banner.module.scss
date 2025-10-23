@@ -2,5 +2,28 @@
 @use '@/styles/abstract/variables';
 
 .Banner {
+    &__Actions {
+        align-items: center;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+        z-index: 2;
+        bottom: 150px;
+        text-align: center;
+        width: 100%;
 
+        @include mixins.after-mobile {
+            gap: 32px;
+        }
+    }
+
+    h1 {
+        font-feature-settings: 'dlig' on;
+        font-size: 4.0rem;
+
+        @include mixins.after-mobile {
+            font-size: 4.8rem;
+        }
+    }
 }

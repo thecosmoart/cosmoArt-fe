@@ -1,0 +1,23 @@
+@use '@/styles/abstract/variables';
+
+button {
+    background: variables.$color-blue;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    color: variables.$color-white;
+    font-feature-settings: 'dlig' on;
+    font-weight: variables.$fw-bold;
+    line-height: 2.4rem;
+    display: flex;
+    padding: 12px 20px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    outline: none;
+    transition: .3s ease-in-out background-color;
+
+    &:hover {
+        background: variables.$color-deep-cove;
+    }
+}

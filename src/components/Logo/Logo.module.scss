@@ -1,0 +1,13 @@
+@use '@/styles/abstract/variables';
+@use '@/styles/abstract/mixins';
+
+.Logo {
+    a {
+        display: block;
+        height: 42px;
+
+        @include mixins.after-mobile {
+            height: 56px;
+        }
+    }
+}
