@@ -1,0 +1,32 @@
+@use '@/styles/abstract/variables';
+@use '@/styles/abstract/mixins';
+
+.FooterLinks {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+
+    @include mixins.after-mobile {
+        display: flex;
+        gap: 100px;
+        justify-content: center;
+        padding: 0;
+    }
+
+    a {
+        text-align: center;
+
+        span {
+            color: variables.$color-anakiwa;
+            font-weight: variables.$fw-bold;
+            transition: .2s ease-in-out color;
+            font-feature-settings: 'dlig' on;
+        }
+
+        &:hover {
+            span {
+                color: variables.$color-anakiwa-dark;
+            }
+        }
+    }
+}

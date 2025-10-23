@@ -1,0 +1,20 @@
+@use '@/styles/abstract/variables';
+@use '@/styles/abstract/mixins';
+
+.FooterCopyright {
+    margin-top: 24px;
+    user-select: none;
+
+    &__Wrapper {
+        p {
+            margin: 0;
+            text-align: center;
+        }
+    }
+
+    &__Content {
+        @include mixins.main-width();
+
+        padding-top: 24px;
+    }
+}
