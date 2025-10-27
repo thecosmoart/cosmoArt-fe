@@ -5,7 +5,19 @@
     @include mixins.main-width;
 
     &__Wrapper {
-        padding: 0 16px 250px;
+        padding: 70px 16px 450px;
+        background: linear-gradient(
+                        180deg,
+                        transparent 0,
+                        variables.$color-deep-cove-dark 50%,
+                        variables.$color-deep-cove-dark 70%,
+                        transparent 100%
+        );
+
+        @include mixins.after-mobile {
+            padding: 130px 16px 450px;
+            background: none;
+        }
     }
 
     &__Background {
