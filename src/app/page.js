@@ -1,5 +1,7 @@
 import {
-    HomePage
+    HomePage,
+    HomePage__Stars,
+    HomePage__Galaxy,
 } from './HomePage.module.scss';
 
 import BannerComponent from '@/components/Banner';
@@ -13,11 +15,15 @@ export default function Home() {
     return (
         <div className={ HomePage }>
             <BannerComponent />
-            <WelcomeBlockComponent />
-            <HowItWorksComponent />
-            <ProductListComponent />
-            <WhyUsComponent />
-            <FaqComponent />
+            <div className={ HomePage__Stars }>
+                <WelcomeBlockComponent />
+                <HowItWorksComponent />
+            </div>
+            <div className={ HomePage__Galaxy }>
+                <ProductListComponent />
+                <WhyUsComponent />
+                <FaqComponent />
+            </div>
         </div>
     );
 }

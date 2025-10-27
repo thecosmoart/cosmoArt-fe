@@ -18,7 +18,13 @@
     }
 
     &__Wrapper {
-        background: linear-gradient(180deg, variables.$color-deep-cove-dark 70%, transparent 100%);
+        background: linear-gradient(
+                        180deg,
+                        transparent 0,
+                        variables.$color-deep-cove-dark 50%,
+                        variables.$color-deep-cove-dark 70%,
+                        transparent 100%
+        );
     }
 
     h2 {
