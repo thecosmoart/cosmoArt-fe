@@ -14,11 +14,19 @@
     &__Wrapper {
         align-items: center;
         display: flex;
+        justify-content: space-between;
 
         @include mixins.main-width();
+    }
 
-        @include mixins.after-mobile {
-            justify-content: space-between;
-        }
+    &__Right {
+        align-items: center;
+        display: flex;
+        gap: 36px;
+    }
+
+    a {
+        align-items: center;
+        display: flex;
     }
 }

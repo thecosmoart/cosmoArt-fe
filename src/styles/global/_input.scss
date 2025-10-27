@@ -1,5 +1,29 @@
 @use '@/styles/abstract/variables';
 
+textarea,
+select,
+input {
+    border-radius: 12px;
+    background: variables.$color-tory-blue;
+    color: variables.$color-white;
+    font-family: variables.$font-space-grotesk;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    display: block;
+    padding: 8px 15px;
+    outline: none;
+    max-height: fit-content;
+    resize: none;
+
+    &::placeholder {
+        color: variables.$color-white;
+    }
+}
+
+input {
+    padding: 8px;
+}
+
 button {
     background: variables.$color-blue;
     border-radius: 12px;
@@ -10,7 +34,7 @@ button {
     font-weight: variables.$fw-bold;
     line-height: 2.4rem;
     display: flex;
-    padding: 12px 20px;
+    padding: 9px 20px;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;

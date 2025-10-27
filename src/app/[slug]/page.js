@@ -33,7 +33,6 @@ export default function CmsPageComponent() {
 
     return page?.name && (
         <div className={ CmsPage__Wrapper }>
-            <Image fill src="/backgrounds/cart.svg" alt="cart bg" objectFit="cover" className={ CmsPage__Background }/>
             <div className={ CmsPage }>
                 <h1>{ page.name }</h1>
                 <div dangerouslySetInnerHTML={ { __html: page.content } }></div>

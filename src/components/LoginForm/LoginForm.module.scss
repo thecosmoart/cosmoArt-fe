@@ -1,0 +1,39 @@
+@use '@/styles/abstract/variables';
+@use '@/styles/abstract/mixins';
+
+.LoginForm {
+    width: 100%;
+
+    @include mixins.after-mobile {
+        box-shadow: variables.$color-black 0 0 15px -5px;
+        padding: 16px;
+        min-width: 320px;
+        width: unset;
+    }
+
+    &__Wrapper {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        flex: 1;
+    }
+
+    &__RegisterLink {
+        font-size: 1.4rem;
+        text-align: center;
+
+        a {
+            font-size: 1.4rem;
+        }
+    }
+
+    input {
+        background: variables.$color-tory-blue;
+        width: 100%;
+    }
+
+    button {
+        width: 100%;
+        margin-bottom: 16px;
+    }
+}
