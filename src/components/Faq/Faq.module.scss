@@ -1,0 +1,38 @@
+@use '@/styles/abstract/variables';
+@use '@/styles/abstract/mixins';
+
+.Faq {
+    @include mixins.main-width;
+
+    padding: variables.$main-horizontal-padding;
+    text-align: center;
+
+    @include mixins.after-mobile {
+        text-align: left;
+        max-width: 928px;
+    }
+
+    &__List {
+        display: grid;
+        grid-gap: 18px;
+    }
+
+    &__Wrapper {
+        background: linear-gradient(180deg, variables.$color-deep-cove-dark 70%, transparent 100%);
+    }
+
+    h2 {
+        font-size: 4rem;
+        line-height: 4.8rem;
+        margin-bottom: 18px;
+        text-shadow: 0 2px 4.8px variables.$color-cyan;
+        font-weight: variables.$fw-regular;
+    }
+
+    h3 {
+        font-size: 3.2rem;
+        line-height: 3.2rem;
+        text-shadow: 0 4px 4px variables.$color-cyan;
+        font-weight: variables.$fw-regular;
+    }
+}

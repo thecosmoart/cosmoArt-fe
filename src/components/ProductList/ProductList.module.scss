@@ -1,0 +1,32 @@
+@use '@/styles/abstract/variables';
+@use '@/styles/abstract/mixins';
+
+.ProductList {
+    @include mixins.main-width;
+
+    padding: 0 55px;
+    max-width: 982px;
+    margin-bottom: 60px;
+
+    @include mixins.after-mobile {
+        margin-bottom: 186px;
+    }
+
+    &__Items {
+        display: grid;
+        grid-gap: 12px;
+
+        @include mixins.after-mobile {
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 76px 12px;
+        }
+    }
+
+    h2 {
+        font-size: 4rem;
+        font-weight: variables.$fw-medium;
+        text-align: center;
+        margin-bottom: 58px;
+        text-shadow: 0 0 6.008px variables.$color-cyan;
+    }
+}

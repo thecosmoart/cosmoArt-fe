@@ -1,0 +1,36 @@
+@use '@/styles/abstract/variables';
+@use '@/styles/abstract/mixins';
+
+.ProductCart {
+    border-radius: 15px;
+    border: 1px solid variables.$color-madison;
+    background: variables.$color-madison;
+    box-shadow: 0 0 43px 0 variables.$color-blue;
+    padding: 30px;
+    text-align: center;
+
+    button {
+        margin-top: 44px;
+        width: 100%;
+    }
+
+    h3 {
+        font-size: 2rem;
+        line-height: 2.5rem;
+        font-weight: variables.$fw-bold;
+        margin: 0;
+    }
+
+    h2 {
+        font-size: 5rem;
+        line-height: 5.6rem;
+        font-weight: variables.$fw-bold !important;
+        letter-spacing: -1px;
+        margin: 21px auto 3px !important;
+        text-shadow: none !important;
+    }
+
+    p {
+        margin: 0 auto 12px;
+    }
+}

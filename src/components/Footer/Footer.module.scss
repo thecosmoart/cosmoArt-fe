@@ -1,4 +1,12 @@
+@use '@/styles/abstract/mixins';
+@use '@/styles/abstract/variables';
+
 .Footer {
     padding: 40px 20px;
     z-index: 1;
+    margin-top: 158px;
+
+    @include mixins.after-mobile {
+        margin-top: 750px;
+    }
 }

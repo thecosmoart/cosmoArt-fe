@@ -18,13 +18,13 @@ export default function HeaderLinksComponent({ closeMenu }) {
                     <span>Home</span>
                 </Link>
                 <li className={ HeaderLinks__List__Item } onClick={ () => {
-                    handleClick('contact_us');
+                    handleClick('about_us');
                     closeMenu();
                 } }>
                     <span>About Us</span>
                 </li>
                 <li className={ HeaderLinks__List__Item } onClick={ () => {
-                    handleClick('faq');
+                    handleClick('pricing');
                     closeMenu();
                 } }>
                     <span>Pricing</span>

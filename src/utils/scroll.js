@@ -5,5 +5,5 @@ export const handleClick = (id) => {
         return;
     }
 
-    window.scrollTo({ top: element.offsetTop + 180, behavior: 'smooth' });
+    window.scrollTo({ top: element.offsetTop - 50, behavior: 'smooth' });
 };

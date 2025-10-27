@@ -7,7 +7,7 @@ html {
 }
 
 body {
-    background: variables.$color-deep-cove-dark;
+    background: variables.$color-deep-cove-dark 50% 100% no-repeat;
     color: variables.$color-white;
     margin: 55px 0 0;
     padding: 0;
@@ -16,6 +16,17 @@ body {
     display: flex;
     flex-direction: column;
     min-height: calc(100vh - 55px);
+
+    &:after {
+        background: url('/backgrounds/footer.png') 50% 100% no-repeat;
+        background-size: cover;
+        content: '';
+        width: 100vw;
+        height: 1279px;
+        position: absolute;
+        bottom: 0;
+        z-index: -1;
+    }
 
     @include mixins.after-mobile {
         min-height: calc(100vh - 69px);

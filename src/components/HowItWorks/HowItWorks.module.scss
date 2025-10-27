@@ -1,0 +1,82 @@
+@use '@/styles/abstract/variables';
+@use '@/styles/abstract/mixins';
+
+.HowItWorks {
+    @include mixins.main-width;
+    text-align: center;
+    margin-bottom: 116px;
+
+    @include mixins.after-mobile {
+        margin-bottom: 280px;
+    }
+
+    &__Steps {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 97px;
+
+        @include mixins.after-mobile {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        @include mixins.wide-desktop {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    &__Step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        padding: 0 20px;
+
+        border-radius: 349px;
+        border: 2px solid variables.$color-blue;
+        background: variables.$color-deep-cove-dark;
+        box-shadow: 0 0 113px 25px variables.$color-blue;
+
+        width: 349px;
+        height: 349px;
+
+        h3 {
+            font-size: 1.6rem;
+            line-height: 2.6rem;
+            margin-bottom: 6px;
+        }
+
+        p {
+            margin: 0 auto;
+            font-size: 1.6rem;
+            line-height: 2.6rem;
+        }
+    }
+
+    h2 {
+        font-size: 3rem;
+        line-height: 3.6rem;
+        margin:  0 auto;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 349px;
+        border: 2px solid variables.$color-blue;
+        background: variables.$color-deep-cove-dark;
+        box-shadow: 0 0 104px 23px variables.$color-blue;
+
+        width: 349px;
+        height: 349px;
+
+        @include mixins.after-mobile {
+            font-size: 4.4rem;
+            line-height: 5.3rem;
+            margin-bottom: 166px;
+        }
+    }
+}
