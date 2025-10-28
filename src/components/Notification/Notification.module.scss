@@ -2,7 +2,7 @@
 @use '@/styles/abstract/mixins';
 
 .Notification {
-    background: rgba(10, 10, 10, 0.77);
+    background: variables.$color-deep-cove-dark;
     color: variables.$color-white;
     border-radius: 6px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, .25), 0 0 2px rgba(0, 0, 0, .25);

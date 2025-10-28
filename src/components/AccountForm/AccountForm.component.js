@@ -3,10 +3,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { getCountryDataList, getEmojiFlag } from 'countries-list';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter  } from 'next/navigation';
 
 import {
     AccountForm,
+    AccountForm__Actions,
     AccountForm__ImageWrapper,
     AccountForm__SubWrapper,
     AccountForm__Wrapper
@@ -15,19 +16,19 @@ import {
 import FormComponent from '@/components/Form';
 import InputSelectComponent from '@/components/InputSelect';
 import InputTextComponent from '@/components/InputText';
-import { useBreadcrumbs } from '@/stores/Breadcrumbs.store';
 import { useNotification } from '@/stores/Notification.store';
 import { useUser } from '@/stores/User.store';
 import { fetchAPI } from '@/utils/api';
 import { browserStorage } from '@/utils/browserStorage';
 
 export default function AccountFormComponent() {
-    const { setUser, isLoggedIn, getUserData } = useUser();
+    const { user, setUser, setIsLoggedIn, isLoggedIn, getUserData } = useUser();
     const countries = getCountryDataList();
     const router = useRouter();
-    const { setBreadcrumbs } = useBreadcrumbs();
+    const pathname = usePathname();
     const { addNotification } = useNotification();
     const [validateForm, setValidateForm] = useState(false);
+    const isRegisterPage = pathname === '/register';
     const [validationResult] = useState({
         name: false,
         lastname: false,
@@ -41,9 +42,12 @@ export default function AccountFormComponent() {
     });
     const ref = useRef();
 
-    useEffect(() => {
-        setBreadcrumbs([{ label: 'Home', link: '/' }, { label: 'Register' }]);
-    }, []);
+    const handleLogout = () => {
+        browserStorage.remove('jwt');
+        setUser(null);
+        setIsLoggedIn(false);
+        router.push('/');
+    };
 
     const setIsValid = (id, isValid) => {
         validationResult[id] = isValid;
@@ -77,7 +81,7 @@ export default function AccountFormComponent() {
         }
     };
 
-    const handleSubmit = async () => {
+    const register = async () => {
         try {
             let result = await fetchAPI('/auth/local/register', null, {
                 body: JSON.stringify({
@@ -109,9 +113,28 @@ export default function AccountFormComponent() {
         }
     };
 
+    const handleSubmit = async () => {
+        if (isRegisterPage) {
+            register();
+        } else if (isLoggedIn) {
+            saveAddress();
+        }
+    };
+
     useEffect(() => {
         if (isLoggedIn) {
-            router.push('/');
+            if (isRegisterPage) {
+                router.push('/');
+            } else {
+                ref.current.name.value = user.address?.first_name;
+                ref.current.email.value = user.email;
+                ref.current.lastname.value = user.address?.last_name;
+                ref.current.phone.value = user.address?.phone;
+                ref.current.country.value = user.address?.country;
+                ref.current.city.value = user.address?.city;
+                ref.current.postcode.value = user.address?.zip;
+                ref.current.address.value = user.address?.street;
+            }
         }
     }, [router, isLoggedIn]);
 
@@ -121,6 +144,12 @@ export default function AccountFormComponent() {
                 <h2>Profile Settings</h2>
                 <div className={ AccountForm__ImageWrapper }>
                     <Image src="/avatar.svg" alt="Avatar" width={ 128 } height={ 128 } />
+                    { !isRegisterPage && (
+                        <div>
+                            <h2>{ user.address?.first_name }</h2>
+                            <span>{ user.email }</span>
+                        </div>
+                    ) }
                 </div>
                 <FormComponent
                     className={ AccountForm }
@@ -159,17 +188,19 @@ export default function AccountFormComponent() {
                         ] }
                         setIsValid={ setIsValid }
                     />
-                    <InputTextComponent
-                        label="Password"
-                        id="password"
-                        type="password"
-                        forceValidate={ validateForm }
-                        rules={ [
-                            { rule: value => value.trim() !== '', message: 'Password is required' },
-                            { rule: value => value.length >= 8, message: 'Password should be at least 8 characters long' }
-                        ] }
-                        setIsValid={ setIsValid }
-                    />
+                    { isRegisterPage && (
+                        <InputTextComponent
+                            label="Password"
+                            id="password"
+                            type="password"
+                            forceValidate={ validateForm }
+                            rules={ [
+                                { rule: value => value.trim() !== '', message: 'Password is required' },
+                                { rule: value => value.length >= 8, message: 'Password should be at least 8 characters long' }
+                            ] }
+                            setIsValid={ setIsValid }
+                        />
+                    ) }
                     <InputTextComponent
                         label="Phone number"
                         id="phone"
@@ -227,7 +258,10 @@ export default function AccountFormComponent() {
                         ] }
                         setIsValid={ setIsValid }
                     />
-                    <button type="submit">Register</button>
+                    <div className={ AccountForm__Actions }>
+                        <button className="secondary" type="submit">{ isRegisterPage ? 'Register' : 'Save' }</button>
+                        { !isRegisterPage && <button className="secondary" onClick={ handleLogout }>Logout</button> }
+                    </div>
                 </FormComponent>
             </div>
         </div>

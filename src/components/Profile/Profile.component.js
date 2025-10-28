@@ -1,5 +1,16 @@
-'use client';
+import {
+    Profile,
+    Profile__Wrapper
+} from  './Profile.module.scss';
+
+import AccountFormComponent from '@/components/AccountForm';
 
 export default function ProfileComponent() {
-   return 'to be implemented'
+    return (
+        <div className={ Profile__Wrapper }>
+            <div className={ Profile }>
+                <AccountFormComponent />
+            </div>
+        </div>
+    );
 }

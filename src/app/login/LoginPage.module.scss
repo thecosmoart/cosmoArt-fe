@@ -1,7 +1,7 @@
 @use '@/styles/abstract/mixins';
 @use '@/styles/abstract/variables';
 
-.Profile__Page {
+.LoginPage {
     &__Wrapper {
         @include mixins.background;
     }

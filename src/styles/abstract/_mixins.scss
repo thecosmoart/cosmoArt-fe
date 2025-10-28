@@ -47,3 +47,43 @@
     margin: 0 auto;
     width: 100%;
 }
+
+@mixin small-width {
+    max-width: 928px;
+    padding: variables.$main-horizontal-padding;
+    margin: 0 auto;
+    width: 100%;
+}
+
+@mixin background {
+    min-height: 1500px;
+    position: relative;
+    overflow: hidden;
+
+    &:before {
+        content: '';
+        width: 100vw;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        z-index: -2;
+        background: linear-gradient(
+                        180deg,
+                        variables.$color-deep-cove-dark 0,
+                        rgba(variables.$color-deep-cove-dark, 1) 70%,
+                        transparent 100%
+        );
+    }
+
+    &:after {
+        content: '';
+        width: 100vw;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        z-index: -1;
+        background: url('/backgrounds/register.svg') no-repeat;
+        background-size: cover;
+        opacity: .1;
+    }
+}

@@ -4,10 +4,10 @@
 .HowItWorks {
     @include mixins.main-width;
     text-align: center;
-    margin-bottom: 116px;
+    margin-bottom: 60px;
 
     @include mixins.after-mobile {
-        margin-bottom: 280px;
+        margin-bottom: 140px;
     }
 
     &__Steps {

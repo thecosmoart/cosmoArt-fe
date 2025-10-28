@@ -103,7 +103,7 @@ export default function LoginFormComponent() {
                         ] }
                         setIsValid={ setIsValid }
                     />
-                    <button type="submit">Log in</button>
+                    <button className="secondary" type="submit">Log in</button>
                     <div className={ LoginForm__RegisterLink }>Dont have an account? <Link href="/register">Register</Link></div>
                 </FormComponent>
             </div>

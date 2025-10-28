@@ -2,5 +2,9 @@
 @use '@/styles/abstract/mixins';
 
 .Profile {
+    @include mixins.main-width;
 
+    @include mixins.small-width;
+
+    padding: 0;
 }

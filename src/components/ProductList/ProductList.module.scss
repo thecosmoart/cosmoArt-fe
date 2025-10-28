@@ -4,11 +4,12 @@
 .ProductList {
     @include mixins.main-width;
 
-    padding: 0 55px;
+    padding: 60px 55px 0;
     max-width: 982px;
     margin-bottom: 60px;
 
     @include mixins.after-mobile {
+        padding-top: 140px;
         margin-bottom: 186px;
     }
 

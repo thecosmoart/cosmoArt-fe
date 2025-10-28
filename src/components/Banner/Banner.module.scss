@@ -5,11 +5,6 @@
     position: relative;
     width: 100%;
     min-height: 739px;
-    margin-bottom: 68px;
-
-    @include mixins.after-mobile {
-        margin-bottom: 145px;
-    }
 
     &__Actions {
         align-items: center;

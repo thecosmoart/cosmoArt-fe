@@ -4,12 +4,13 @@
 .Faq {
     @include mixins.main-width;
 
-    padding: variables.$main-horizontal-padding;
+    padding: 140px variables.$main-horizontal-padding 0;
     text-align: center;
 
     @include mixins.after-mobile {
         text-align: left;
         max-width: 928px;
+        padding-top: 280px;
     }
 
     &__List {

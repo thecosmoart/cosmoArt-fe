@@ -50,6 +50,14 @@ button {
     transition: .3s ease-in-out background-color;
 
     &:hover {
-        background: variables.$color-deep-cove;
+        background: variables.$color-madison;
+    }
+
+    &.secondary {
+        background: variables.$color-tory-blue;
+
+        &:hover {
+            background: variables.$color-madison;
+        }
     }
 }
