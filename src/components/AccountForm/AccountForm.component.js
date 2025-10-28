@@ -146,7 +146,7 @@ export default function AccountFormComponent() {
                     <Image src="/avatar.svg" alt="Avatar" width={ 128 } height={ 128 } />
                     { !isRegisterPage && (
                         <div>
-                            <h2>{ user.address?.first_name }</h2>
+                            <h2>{ user?.address?.first_name }</h2>
                             <span>{ user.email }</span>
                         </div>
                     ) }
