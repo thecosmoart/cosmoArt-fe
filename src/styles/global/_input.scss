@@ -4,6 +4,7 @@ textarea,
 select,
 input {
     border-radius: 12px;
+    border: 1px solid transparent;
     background: variables.$color-tory-blue;
     color: variables.$color-white;
     font-family: variables.$font-space-grotesk;

@@ -8,7 +8,15 @@ import {
     InputText_invalid
 } from './InputText.module.scss';
 
-export default function InputTextComponent({ placeholder, id, forceValidate, rules, setIsValid, iconLink = '', type = 'text' }) {
+export default function InputTextComponent({
+    placeholder,
+    label,
+    id,
+    forceValidate,
+    rules,
+    setIsValid,
+    type = 'text'
+}) {
     const [errorMessage, setErrorMessage] = useState('');
     const ref = useRef();
 
@@ -35,17 +43,19 @@ export default function InputTextComponent({ placeholder, id, forceValidate, rul
     }, [forceValidate]);
 
     return (
-        <div className={ `
-            ${InputText}
-            ${errorMessage && InputText_invalid}
-        ` }>
-            { iconLink && <Image src={ iconLink  } width={ 20 } height={ 20 } alt="icon" className={ 'input-icon' } /> }
+        <div
+            className={ `
+            ${ InputText }
+            ${ errorMessage && InputText_invalid }
+        ` }
+        >
+            <span>{ label }</span>
             { type === 'textarea' ? (
-                <textarea rows="5"  placeholder={ placeholder } id={ id } ref={ ref } onChange={ validate }/>
+                <textarea rows="5" placeholder={ placeholder } id={ id } ref={ ref } onChange={ validate } />
             ) : (
-                <input type={ type } placeholder={ placeholder } id={ id } ref={ ref } onChange={ validate }/>
-            )  }
-            { errorMessage && <p className={ InputText__Error }>{ errorMessage }</p>  }
+                <input type={ type } placeholder={ placeholder } id={ id } ref={ ref } onChange={ validate } />
+            ) }
+            { errorMessage && <p className={ InputText__Error }>{ errorMessage }</p> }
         </div>
     );
 }
