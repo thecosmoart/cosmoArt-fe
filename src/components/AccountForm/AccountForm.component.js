@@ -1,15 +1,19 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { getCountryDataList, getEmojiFlag } from 'countries-list';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import {
     AccountForm,
     AccountForm__ImageWrapper,
-    AccountForm__Wrapper } from './AccountForm.module.scss';
+    AccountForm__SubWrapper,
+    AccountForm__Wrapper
+} from './AccountForm.module.scss';
 
 import FormComponent from '@/components/Form';
+import InputSelectComponent from '@/components/InputSelect';
 import InputTextComponent from '@/components/InputText';
 import { useBreadcrumbs } from '@/stores/Breadcrumbs.store';
 import { useNotification } from '@/stores/Notification.store';
@@ -18,7 +22,8 @@ import { fetchAPI } from '@/utils/api';
 import { browserStorage } from '@/utils/browserStorage';
 
 export default function AccountFormComponent() {
-    const { setUser, isLoggedIn } = useUser();
+    const { setUser, isLoggedIn, getUserData } = useUser();
+    const countries = getCountryDataList();
     const router = useRouter();
     const { setBreadcrumbs } = useBreadcrumbs();
     const { addNotification } = useNotification();
@@ -44,17 +49,39 @@ export default function AccountFormComponent() {
         validationResult[id] = isValid;
     };
 
+    const saveAddress = async () => {
+        const data = {
+            first_name: ref.current?.name?.value,
+            last_name: ref.current?.lastname?.value,
+            phone: ref.current?.phone?.value,
+            country: ref.current?.country?.value,
+            city: ref.current?.city?.value,
+            zip: ref.current?.postcode?.value,
+            street: ref.current?.address?.value
+        };
+
+        try {
+            const result = await fetchAPI('/addresses', null, {
+                method: 'POST',
+                body: JSON.stringify(data)
+            });
+
+            if (result?.data?.id) {
+                getUserData();
+            }
+        } catch (error) {
+            addNotification({
+                type: 'error',
+                message: error.message ?? 'An error occurred while updating address. Please try again!'
+            });
+        }
+    };
+
     const handleSubmit = async () => {
         try {
             let result = await fetchAPI('/auth/local/register', null, {
                 body: JSON.stringify({
-                    first_name: ref.current?.name?.value,
-                    last_name: ref.current?.lastname?.value,
-                    phone: ref.current?.phone?.value,
-                    country: ref.current?.country?.value,
-                    city: ref.current?.city?.value,
-                    zip: ref.current?.postcode?.value,
-                    street: ref.current?.address?.value,
+                    username: ref.current?.email?.value,
                     email: ref.current?.email?.value,
                     password: ref.current?.password?.value
                 }),
@@ -72,7 +99,7 @@ export default function AccountFormComponent() {
 
             browserStorage.set('jwt', result.jwt, 86400);
 
-            setUser(result.user);
+            await saveAddress();
             addNotification({ type: 'success', message: 'Registration is successful!' });
         } catch (e) {
             addNotification({
@@ -90,110 +117,119 @@ export default function AccountFormComponent() {
 
     return (
         <div className={ AccountForm__Wrapper }>
-            <h2>Profile Settings</h2>
-            <div className={ AccountForm__ImageWrapper }>
-                <Image src="/avatar.svg" alt="Avatar" width={ 128 } height={ 128 } />
+            <div className={ AccountForm__SubWrapper }>
+                <h2>Profile Settings</h2>
+                <div className={ AccountForm__ImageWrapper }>
+                    <Image src="/avatar.svg" alt="Avatar" width={ 128 } height={ 128 } />
+                </div>
+                <FormComponent
+                    className={ AccountForm }
+                    onSubmit={ handleSubmit }
+                    setValidateForm={ setValidateForm }
+                    validationResult={ validationResult }
+                    ref={ ref }
+                >
+                    <InputTextComponent
+                        label="Name"
+                        id="name"
+                        forceValidate={ validateForm }
+                        rules={ [
+                            { rule: value => value.trim() !== '', message: 'Name is required' },
+                            { rule: value => value.length >= 3, message: 'Name should be at least 3 characters long' }
+                        ] }
+                        setIsValid={ setIsValid }
+                    />
+                    <InputTextComponent
+                        label="Last name"
+                        id="lastname"
+                        forceValidate={ validateForm }
+                        rules={ [
+                            { rule: value => value.trim() !== '', message: 'Last name is required' },
+                            { rule: value => value.length >= 3, message: 'Last name should be at least 3 characters long' }
+                        ] }
+                        setIsValid={ setIsValid }
+                    />
+                    <InputTextComponent
+                        label="Email"
+                        id="email"
+                        forceValidate={ validateForm }
+                        rules={ [
+                            { rule: value => value.trim() !== '', message: 'Email is required' },
+                            { rule: value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), message: 'Invalid email format' }
+                        ] }
+                        setIsValid={ setIsValid }
+                    />
+                    <InputTextComponent
+                        label="Password"
+                        id="password"
+                        type="password"
+                        forceValidate={ validateForm }
+                        rules={ [
+                            { rule: value => value.trim() !== '', message: 'Password is required' },
+                            { rule: value => value.length >= 8, message: 'Password should be at least 8 characters long' }
+                        ] }
+                        setIsValid={ setIsValid }
+                    />
+                    <InputTextComponent
+                        label="Phone number"
+                        id="phone"
+                        forceValidate={ validateForm }
+                        rules={ [
+                            {
+                                rule: (value) => value.trim()!== '' && value.trim().length >= 8,
+                                message: 'Phone number must be at least 8 digits long'
+                            },
+                            {
+                                rule: (value) => /^\+[1-9]\d{0,14}$/.test(value),
+                                message: 'Phone number must be in the format +123456789012'
+                            }
+                        ] }
+                        setIsValid={ setIsValid }
+                    />
+                    <InputSelectComponent
+                        label="Country"
+                        id="country"
+                        options={ Object.values(countries).map(({ name, iso2 }) => ({ value: iso2, label: `${getEmojiFlag(iso2)} ${name}` })) }
+                        forceValidate={ validateForm }
+                        rules={ [
+                            { rule: value => value.trim() !== '', message: 'Country is required' },
+                            { rule: value => value.length >= 2, message: 'Country should be at least 2 characters long' }
+                        ] }
+                        setIsValid={ setIsValid }
+                    />
+                    <InputTextComponent
+                        label="City"
+                        id="city"
+                        forceValidate={ validateForm }
+                        rules={ [
+                            { rule: value => value.trim() !== '', message: 'City is required' },
+                            { rule: value => value.length >= 2, message: 'City should be at least 2 characters long' }
+                        ] }
+                        setIsValid={ setIsValid }
+                    />
+                    <InputTextComponent
+                        label="Postcode"
+                        id="postcode"
+                        forceValidate={ validateForm }
+                        rules={ [
+                            { rule: value => value.trim() !== '', message: 'Postcode is required' },
+                            { rule: value => value.length >= 2, message: 'Postcode should be at least 2 characters long' }
+                        ] }
+                        setIsValid={ setIsValid }
+                    />
+                    <InputTextComponent
+                        label="Address"
+                        id="address"
+                        forceValidate={ validateForm }
+                        rules={ [
+                            { rule: value => value.trim() !== '', message: 'Address is required' },
+                            { rule: value => value.length >= 2, message: 'Address should be at least 2 characters long' }
+                        ] }
+                        setIsValid={ setIsValid }
+                    />
+                    <button type="submit">Register</button>
+                </FormComponent>
             </div>
-            <FormComponent
-                className={ AccountForm }
-                onSubmit={ handleSubmit }
-                setValidateForm={ setValidateForm }
-                validationResult={ validationResult }
-                ref={ ref }
-            >
-                <InputTextComponent
-                    label="Name"
-                    id="name"
-                    forceValidate={ validateForm }
-                    rules={ [
-                        { rule: value => value.trim() !== '', message: 'Name is required' },
-                        { rule: value => value.length >= 3, message: 'Name should be at least 3 characters long' }
-                    ] }
-                    setIsValid={ setIsValid }
-                />
-                <InputTextComponent
-                    label="Last name"
-                    id="lastname"
-                    forceValidate={ validateForm }
-                    rules={ [
-                        { rule: value => value.trim() !== '', message: 'Last name is required' },
-                        { rule: value => value.length >= 3, message: 'Last name should be at least 3 characters long' }
-                    ] }
-                    setIsValid={ setIsValid }
-                />
-                <InputTextComponent
-                    label="Email"
-                    id="email"
-                    forceValidate={ validateForm }
-                    rules={ [
-                        { rule: value => value.trim() !== '', message: 'Email is required' },
-                        { rule: value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), message: 'Invalid email format' }
-                    ] }
-                    setIsValid={ setIsValid }
-                />
-                <InputTextComponent
-                    label="Password"
-                    id="password"
-                    type="password"
-                    forceValidate={ validateForm }
-                    rules={ [
-                        { rule: value => value.trim() !== '', message: 'Password is required' },
-                        { rule: value => value.length >= 8, message: 'Password should be at least 8 characters long' }
-                    ] }
-                    setIsValid={ setIsValid }
-                />
-                <InputTextComponent
-                    label="Phone number"
-                    id="phone"
-                    forceValidate={ validateForm }
-                    rules={ [
-                        { rule: value => value.trim() !== '', message: 'Phone number is required' },
-                        { rule: value => value.length >= 3, message: 'Phone number should be at least 3 characters long' }
-                    ] }
-                    setIsValid={ setIsValid }
-                />
-                <InputTextComponent
-                    label="Country"
-                    id="country"
-                    forceValidate={ validateForm }
-                    rules={ [
-                        { rule: value => value.trim() !== '', message: 'Country is required' },
-                        { rule: value => value.length >= 2, message: 'Country should be at least 2 characters long' }
-                    ] }
-                    setIsValid={ setIsValid }
-                />
-                <InputTextComponent
-                    label="City"
-                    id="city"
-                    forceValidate={ validateForm }
-                    rules={ [
-                        { rule: value => value.trim() !== '', message: 'City is required' },
-                        { rule: value => value.length >= 2, message: 'City should be at least 2 characters long' }
-                    ] }
-                    setIsValid={ setIsValid }
-                />
-                <InputTextComponent
-                    label="Postcode"
-                    id="postcode"
-                    forceValidate={ validateForm }
-                    rules={ [
-                        { rule: value => value.trim() !== '', message: 'Postcode is required' },
-                        { rule: value => value.length >= 2, message: 'Postcode should be at least 2 characters long' }
-                    ] }
-                    setIsValid={ setIsValid }
-                />
-                <InputTextComponent
-                    label="Address"
-                    id="address"
-                    forceValidate={ validateForm }
-                    rules={ [
-                        { rule: value => value.trim() !== '', message: 'Address is required' },
-                        { rule: value => value.length >= 2, message: 'Address should be at least 2 characters long' }
-                    ] }
-                    setIsValid={ setIsValid }
-                />
-                <button type="submit">Register</button>
-            </FormComponent>
         </div>
     );
 }

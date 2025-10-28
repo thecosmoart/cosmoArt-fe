@@ -25,6 +25,13 @@ input {
     padding: 8px;
 }
 
+select {
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
 button {
     background: variables.$color-blue;
     border-radius: 12px;

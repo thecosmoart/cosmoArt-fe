@@ -2,18 +2,20 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Cookies from 'js-cookie';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import {
     LoginForm,
+    LoginForm__ImageWrapper,
     LoginForm__RegisterLink,
+    LoginForm__SubWrapper,
     LoginForm__Wrapper
 } from './LoginForm.module.scss';
 
 import FormComponent from '@/components/Form';
 import InputTextComponent from '@/components/InputText';
-import { useBreadcrumbs } from '@/stores/Breadcrumbs.store';
 import { useNotification } from '@/stores/Notification.store';
 import { useUser } from '@/stores/User.store';
 import { fetchAPI } from '@/utils/api';
@@ -25,7 +27,7 @@ export default function LoginFormComponent() {
     const { addNotification } = useNotification();
     const [validateForm, setValidateForm] = useState(false);
     const [validationResult] = useState({
-        username: false,
+        email: false,
         password: false
     });
     const ref = useRef();
@@ -38,7 +40,7 @@ export default function LoginFormComponent() {
         try {
             let result = await fetchAPI('/auth/local', null, {
                 body: JSON.stringify({
-                    identifier: ref.current?.username?.value,
+                    identifier: ref.current?.email?.value,
                     password: ref.current?.password?.value
                 }),
                 method: 'POST'
@@ -68,37 +70,43 @@ export default function LoginFormComponent() {
 
     return (
         <div className={ LoginForm__Wrapper }>
-            <FormComponent
-                className={ LoginForm }
-                onSubmit={ handleSubmit }
-                setValidateForm={ setValidateForm }
-                validationResult={ validationResult }
-                ref={ ref }
-            >
-                <InputTextComponent
-                    placeholder="Username"
-                    id="username"
-                    forceValidate={ validateForm }
-                    rules={ [
-                        { rule: value => value.trim() !== '', message: 'Username is required' },
-                        { rule: value => value.length >= 3, message: 'Username should be at least 3 characters long' }
-                    ] }
-                    setIsValid={ setIsValid }
-                />
-                <InputTextComponent
-                    placeholder="Password"
-                    id="password"
-                    type="password"
-                    forceValidate={ validateForm }
-                    rules={ [
-                        { rule: value => value.trim() !== '', message: 'Password is required' },
-                        { rule: value => value.length >= 8, message: 'Password should be at least 8 characters long' }
-                    ] }
-                    setIsValid={ setIsValid }
-                />
-                <button type="submit">Log in</button>
-                <div className={ LoginForm__RegisterLink }>Dont have an account? <Link href="/register">Register</Link></div>
-            </FormComponent>
+            <div className={ LoginForm__SubWrapper }>
+                <h2>Login</h2>
+                <div className={ LoginForm__ImageWrapper }>
+                    <Image src="/avatar.svg" alt="Avatar" width={ 128 } height={ 128 } />
+                </div>
+                <FormComponent
+                    className={ LoginForm }
+                    onSubmit={ handleSubmit }
+                    setValidateForm={ setValidateForm }
+                    validationResult={ validationResult }
+                    ref={ ref }
+                >
+                    <InputTextComponent
+                        label="Email"
+                        id="email"
+                        forceValidate={ validateForm }
+                        rules={ [
+                            { rule: value => value.trim() !== '', message: 'Email is required' },
+                            { rule: value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), message: 'Invalid email format' }
+                        ] }
+                        setIsValid={ setIsValid }
+                    />
+                    <InputTextComponent
+                        placeholder="Password"
+                        id="password"
+                        type="password"
+                        forceValidate={ validateForm }
+                        rules={ [
+                            { rule: value => value.trim() !== '', message: 'Password is required' },
+                            { rule: value => value.length >= 8, message: 'Password should be at least 8 characters long' }
+                        ] }
+                        setIsValid={ setIsValid }
+                    />
+                    <button type="submit">Log in</button>
+                    <div className={ LoginForm__RegisterLink }>Dont have an account? <Link href="/register">Register</Link></div>
+                </FormComponent>
+            </div>
         </div>
     );
 }
