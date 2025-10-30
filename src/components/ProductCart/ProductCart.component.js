@@ -39,10 +39,10 @@ export default function ProductCartComponent({ productData }) {
     
     return (
         <div className={ ProductCart }>
-            <h3>{ productData.name } generations</h3>
+            <h3>{ productData.amount } generations</h3>
             <h2>€ { productData.price.toFixed(0) }</h2>
-            <p>{ productData.name } coin</p>
-            <p>1 coin = { (productData.price / parseInt(productData.name)).toFixed(2) } ¢</p>
+            <p>{ productData.amount } coin</p>
+            <p>1 coin = { (productData.price / parseInt(productData.amount)).toFixed(2) } ¢</p>
             <button onClick={ () => handleClick(productData) }>Buy Now</button>
         </div>
     );

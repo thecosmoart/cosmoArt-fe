@@ -14,13 +14,6 @@ export default async function ProductListComponent() {
                 image: true,
                 category: true
             },
-            filters: {
-                category: {
-                    name: {
-                        $eq: 'coin'
-                    }
-                }
-            },
             pagination: {
                 page: 1,
                 pageSize: 6

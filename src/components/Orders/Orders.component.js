@@ -37,7 +37,7 @@ export default function OrdersComponent() {
                         </div>
                         <div>
                             <span>Tokens</span>
-                            <div><span>{ order.items[0].name }</span></div>
+                            <div><span>{ order.items[0].amount }</span></div>
                         </div>
                         <div>
                             <span>Status</span>
