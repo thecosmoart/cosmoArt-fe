@@ -12,8 +12,7 @@ import InputTextComponent from '@/components/InputText';
 import { fetchAPI } from '@/utils/api';
 
 export default function ImageGeneratorComponent() {
-    const [images, setImages] = useState([
-    ]);
+    const [images, setImages] = useState([]);
     const ref = useRef();
 
     const handleGenerate = async () => {
@@ -24,14 +23,25 @@ export default function ImageGeneratorComponent() {
         setImages(result);
     };
 
-    const handleDownload = () => {
-        for (const [index, link] of images.entries()) {
-            const element = document.createElement('a');
-            element.href = link;
-            element.download = `${index}.${link.split('.').pop()}`;
-            document.body.appendChild(element);
-            element.click();
-            document.body.removeChild(element);
+    const handleDownload = async () => {
+        for (const link of images) {
+            try {
+                const response = await fetch(link);
+                const blobImage = await response.blob();
+                const href = URL.createObjectURL(blobImage);
+                const anchorElement = document.createElement('a');
+
+                anchorElement.href = href;
+                anchorElement.download = link.split('/').pop();
+
+                document.body.appendChild(anchorElement);
+                anchorElement.click();
+
+                document.body.removeChild(anchorElement);
+                window.URL.revokeObjectURL(href);
+            } catch (e) {
+                console.error('Error downloading image:', e);
+            }
         }
     };
     
