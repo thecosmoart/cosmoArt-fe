@@ -4,27 +4,48 @@
 .Banner {
     position: relative;
     width: 100%;
-    min-height: 739px;
+    min-height: 208px;
+
+
+    @include mixins.after-mobile {
+        min-height: 739px;
+    }
+
+    &__Wrapper {
+        position: relative;
+    }
 
     &__Actions {
         align-items: center;
-        position: absolute;
         display: flex;
         flex-direction: column;
         gap: 35px;
         z-index: 2;
-        bottom: 150px;
         text-align: center;
+        margin-top: 13px;
+        padding: 0 variables.$main-horizontal-padding;
         width: 100%;
+
+        &_active {
+            h1 {
+                max-width: 600px !important;
+            }
+        }
 
         @include mixins.after-mobile {
             gap: 32px;
+            position: absolute;
+            margin-top: 0;
+            bottom: 150px;
+            padding: 0;
         }
     }
 
     h1 {
         font-feature-settings: 'dlig' on;
         font-size: 4.0rem;
+        letter-spacing: -2px;
+        max-width: 767px;
 
         @include mixins.after-mobile {
             font-size: 4.8rem;

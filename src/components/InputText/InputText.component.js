@@ -15,10 +15,11 @@ export default function InputTextComponent({
     forceValidate,
     rules,
     setIsValid,
-    type = 'text'
+    type = 'text',
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    ref = useRef()
 }) {
     const [errorMessage, setErrorMessage] = useState('');
-    const ref = useRef();
 
     const validate = () => {
         const value = ref.current.value;

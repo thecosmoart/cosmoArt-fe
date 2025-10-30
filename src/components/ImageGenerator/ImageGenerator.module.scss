@@ -1,0 +1,63 @@
+@use '@/styles/abstract/mixins';
+@use '@/styles/abstract/variables';
+
+.ImageGenerator {
+    @include mixins.main-width;
+
+    padding: 0 variables.$main-horizontal-padding;
+    margin-top: 52px;
+
+    @include mixins.after-mobile {
+        margin-top: 45px;
+    }
+
+    &__Images {
+        display: grid;
+        grid-gap: 12px;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 22px;
+
+        @include mixins.desktop {
+            grid-template-columns: repeat(4, 1fr);
+            max-width: 928px;
+            margin: 0 auto 42px;
+        }
+
+        &__ImageContainer {
+            display: flex;
+            justify-content: center;
+
+            img {
+                border-radius: 10px;
+                max-width: 100%;
+
+                @include mixins.desktop {
+                    max-width: 223px;
+                }
+            }
+        }
+    }
+
+    input {
+        width: 100%;
+        background: variables.$color-deep-cove-darkest;
+        box-shadow: 0 0 27.5px 13px variables.$color-blue-light;
+        margin-bottom: 45px;
+    }
+
+    button {
+        width: 100%;
+        max-width: 287px;
+        margin: 0 auto 68px;
+
+        @include mixins.after-mobile {
+            margin: 0 auto 38px;
+        }
+
+        &:last-of-type {
+            @include mixins.desktop {
+                max-width: 928px;
+            }
+        }
+    }
+}
