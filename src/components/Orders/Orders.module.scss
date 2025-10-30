@@ -43,6 +43,12 @@
                     text-align: center;
                 }
             }
+
+            &__Status {
+                & > div {
+                    text-transform: capitalize;
+                }
+            }
         }
     }
 }

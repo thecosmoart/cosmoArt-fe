@@ -11,8 +11,7 @@ export default async function ProductListComponent() {
     const loadProduct = async () => {
         let params = {
             populate: {
-                image: true,
-                category: true
+                image: true
             },
             pagination: {
                 page: 1,

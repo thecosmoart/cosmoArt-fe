@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 
-import { Orders__List, Orders__List__Order, Orders__Wrapper } from './Orders.module.scss';
+import { Orders__List, Orders__List__Order, Orders__List__Order__Status, Orders__Wrapper } from './Orders.module.scss';
 
 import { fetchAPI } from '@/utils/api';
 
@@ -37,11 +37,11 @@ export default function OrdersComponent() {
                         </div>
                         <div>
                             <span>Tokens</span>
-                            <div><span>{ order.items[0].amount }</span></div>
+                            <div><span>{ order.items[0].name }</span></div>
                         </div>
-                        <div>
+                        <div className={ Orders__List__Order__Status }>
                             <span>Status</span>
-                            <div><span>{ order.status }</span></div>
+                            <div><span>{ order.order_status.toLowerCase() }</span></div>
                         </div>
                     </div>
                 )) }
