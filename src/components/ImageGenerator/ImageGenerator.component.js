@@ -18,9 +18,14 @@ export default function ImageGeneratorComponent() {
     const handleGenerate = async () => {
         const value = ref.current.value;
 
-        const result = await fetchAPI(`/api/generate-image?text=${value}`);
+        const result = await fetchAPI('/generate-images', null, {
+            body: JSON.stringify({
+                prompt: value,
+            }),
+            method: 'POST'
+        });
 
-        setImages(result);
+        setImages(result.data);
     };
 
     const handleDownload = async () => {

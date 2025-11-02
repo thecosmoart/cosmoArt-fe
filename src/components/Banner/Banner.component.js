@@ -32,7 +32,6 @@ export default function BannerComponent() {
             router.push('#pricing');
 
             return;
-
         }
 
         setGenerationActivated(true);
