@@ -15,6 +15,10 @@ const nextConfig = {
             {
                 source: '/uploads/:path*',
                 destination: `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/uploads/:path*`
+            },
+            {
+                source: '/generated/:path*',
+                destination: `${process.env.NEXT_PUBLIC_OPEN_AI_URL}/:path*`
             }
         ];
     }

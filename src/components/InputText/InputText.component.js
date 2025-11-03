@@ -14,7 +14,7 @@ export default function InputTextComponent({
     id,
     forceValidate,
     rules,
-    setIsValid,
+    setIsValid = () => {},
     type = 'text',
     // eslint-disable-next-line react-hooks/rules-of-hooks
     ref = useRef()
@@ -24,12 +24,14 @@ export default function InputTextComponent({
     const validate = () => {
         const value = ref.current.value;
 
-        for (const { rule, message } of rules) {
-            if (!rule(value)) {
-                setErrorMessage(message);
-                setIsValid(id, false);
+        if (rules) {
+            for (const { rule, message } of rules) {
+                if (!rule(value)) {
+                    setErrorMessage(message);
+                    setIsValid(id, false);
 
-                return false;
+                    return false;
+                }
             }
         }
 
