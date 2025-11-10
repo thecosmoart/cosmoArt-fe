@@ -1,13 +1,19 @@
+'use client';
+
 import {
     WelcomeBlock,
-    WelcomeBlock__Tripple,
-    WelcomeBlock__Single
+    WelcomeBlock__Single,
+    WelcomeBlock__Tripple
 } from './WelcomeBlock.module.scss';
 
+import { useUser } from '@/stores/User.store';
+
 export default function WelcomeBlockComponent() {
-    return (
+    const { isGeneratingActivated } = useUser();
+
+    return !isGeneratingActivated && (
         <div className={ WelcomeBlock } id="about_us">
-            <div className={ WelcomeBlock__Tripple}>
+            <div className={ WelcomeBlock__Tripple }>
                 <h2>Welcome</h2>
                 <h2>to</h2>
                 <h2>The CosmoArt</h2>

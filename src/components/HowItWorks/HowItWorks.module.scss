@@ -5,9 +5,11 @@
     @include mixins.main-width;
     text-align: center;
     margin-bottom: 60px;
+    padding-top: 110px;
 
     @include mixins.after-mobile {
         margin-bottom: 140px;
+        padding-top: 256px;
     }
 
     &__Steps {
@@ -59,7 +61,7 @@
     h2 {
         font-size: 3rem;
         line-height: 3.6rem;
-        margin:  0 auto;
+        margin: 0 auto 97px;
 
         display: flex;
         align-items: center;

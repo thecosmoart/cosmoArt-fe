@@ -18,7 +18,7 @@ import { useUser } from '@/stores/User.store';
 export default function BannerComponent() {
     const [generationActivated, setGenerationActivated] = useState(false);
     const { isDesktop } = useDevice();
-    const { user, isLoggedIn } = useUser();
+    const { user, isLoggedIn, setIsGeneratingActivated } = useUser();
     const router = useRouter();
 
     const handleButtonClick = () => {
@@ -35,6 +35,7 @@ export default function BannerComponent() {
         }
 
         setGenerationActivated(true);
+        setIsGeneratingActivated(true);
     };
 
     const renderBannerActions = () => (
