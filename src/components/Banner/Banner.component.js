@@ -16,9 +16,8 @@ import { useDevice } from '@/stores/Device.store';
 import { useUser } from '@/stores/User.store';
 
 export default function BannerComponent() {
-    const [generationActivated, setGenerationActivated] = useState(false);
     const { isDesktop } = useDevice();
-    const { user, isLoggedIn, setIsGeneratingActivated } = useUser();
+    const { user, isLoggedIn, setIsGeneratingActivated, isGeneratingActivated } = useUser();
     const router = useRouter();
 
     const handleButtonClick = () => {
@@ -34,22 +33,21 @@ export default function BannerComponent() {
             return;
         }
 
-        setGenerationActivated(true);
         setIsGeneratingActivated(true);
     };
 
     const renderBannerActions = () => (
         <div className={ `
                 ${Banner__Actions}
-                ${generationActivated ? Banner__Actions_active : '' }  `
+                ${isGeneratingActivated ? Banner__Actions_active : '' }  `
         }>
             <h1>
-                { generationActivated
+                { isGeneratingActivated
                     ? 'Unleash Your Imagination \n with AI-Powered Art'
                     : 'Create stunning AI images from text'
                 }
             </h1>
-            { !generationActivated && <button onClick={ handleButtonClick }>Start Generating</button> }
+            { !isGeneratingActivated && <button onClick={ handleButtonClick }>Start Generating</button> }
         </div>
     );
 
@@ -60,7 +58,7 @@ export default function BannerComponent() {
                 { isDesktop && (renderBannerActions()) }
             </div>
             { !isDesktop && (renderBannerActions()) }
-            { generationActivated && <ImageGeneratorComponent /> }
+            { isGeneratingActivated && <ImageGeneratorComponent /> }
         </div>
     );
 }

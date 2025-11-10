@@ -9,10 +9,12 @@ import {
     HeaderLinks__List__Item
 } from './HeaderLinks.module.scss';
 
+import { useUser } from '@/stores/User.store';
 import { handleClick } from '@/utils/scroll';
 
-export default function HeaderLinksComponent({ closeMenu }) {
+export default function HeaderLinksComponent() {
     const router = useRouter();
+    const { user, setIsGeneratingActivated } = useUser();
 
     return (
         <div className={ HeaderLinks }>
@@ -20,6 +22,16 @@ export default function HeaderLinksComponent({ closeMenu }) {
                 <Link href="/" className={ HeaderLinks__List__Item }>
                     <span>Home</span>
                 </Link>
+                {
+                    parseInt(user?.balance) && (
+                        <li className={ HeaderLinks__List__Item } onClick={ () => {
+                            setIsGeneratingActivated(true);
+                            router.push('/');
+                        } }>
+                            <span>Generate</span>
+                        </li>
+                    ) || ''
+                }
                 <li className={ HeaderLinks__List__Item } onClick={ () => router.push('/#about_us') }>
                     <span>About Us</span>
                 </li>
