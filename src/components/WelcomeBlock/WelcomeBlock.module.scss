@@ -5,11 +5,9 @@
     @include mixins.main-width;
 
     padding-top: 68px;
-    margin-bottom: 152px;
 
     @include mixins.after-mobile {
         padding-top: 145px;
-        margin-bottom: 128px;
     }
 
     &__Tripple {
