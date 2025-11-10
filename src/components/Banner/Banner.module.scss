@@ -6,9 +6,10 @@
     width: 100%;
     min-height: 208px;
 
-
     @include mixins.after-mobile {
         min-height: 739px;
+        max-width: variables.$main-width;
+        margin: 0 auto;
     }
 
     &__Wrapper {
@@ -36,7 +37,7 @@
             gap: 32px;
             position: absolute;
             margin-top: 0;
-            bottom: 150px;
+            bottom: 72px;
             padding: 0;
         }
     }
@@ -50,5 +51,9 @@
         @include mixins.after-mobile {
             font-size: 4.8rem;
         }
+    }
+
+    img {
+        border-radius: 12px;
     }
 }
