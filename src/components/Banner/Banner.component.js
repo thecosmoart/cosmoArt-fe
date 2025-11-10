@@ -28,7 +28,7 @@ export default function BannerComponent() {
             return;
         }
 
-        if (!user.balance) {
+        if (!parseInt(user.balance)) {
             router.push('#pricing');
 
             return;
