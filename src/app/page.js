@@ -1,24 +1,24 @@
 import {
     HomePage,
-    HomePage__Stars,
     HomePage__Galaxy,
+    HomePage__Stars
 } from './HomePage.module.scss';
 
 import BannerComponent from '@/components/Banner';
-import FaqComponent from "@/components/Faq";
-import HowItWorksComponent from "@/components/HowItWorks";
-import WelcomeBlockComponent from "@/components/WelcomeBlock";
-import ProductListComponent from "@/components/ProductList";
-import WhyUsComponent from "@/components/WhyUs";
+import FaqComponent from '@/components/Faq';
+import HowItWorksComponent from '@/components/HowItWorks';
+import ProductListComponent from '@/components/ProductList';
+import WelcomeBlockComponent from '@/components/WelcomeBlock';
+import WhyUsComponent from '@/components/WhyUs';
 
 export default function Home() {
     return (
         <div className={ HomePage }>
-            <BannerComponent />
             <div className={ HomePage__Stars }>
+                <BannerComponent />
                 <WelcomeBlockComponent />
-                <HowItWorksComponent />
             </div>
+            <HowItWorksComponent />
             <div className={ HomePage__Galaxy }>
                 <ProductListComponent />
                 <WhyUsComponent />

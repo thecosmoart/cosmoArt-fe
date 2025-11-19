@@ -18,7 +18,7 @@ export default function FaqComponent() {
         },
         {
             question: 'My coins didn’t appear — what should I do?',
-            answer: 'Payments may take a few minutes to process.If tokens don’t show up after 10–15 minutes, contact us at support@thecosmoart.com.'
+            answer: 'Payments may take a few minutes to process. If tokens don’t show up after 10–15 minutes, contact us at support@thecosmoart.com.'
         },
         {
             question: 'Do tokens expire?',

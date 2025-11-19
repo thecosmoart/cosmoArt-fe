@@ -33,7 +33,7 @@ export default function AccountFormComponent() {
         name: false,
         lastname: false,
         email: false,
-        password: false,
+        password: !isRegisterPage,
         phone: false,
         country: false,
         city: false,
@@ -72,6 +72,8 @@ export default function AccountFormComponent() {
 
             if (result?.data?.id) {
                 getUserData();
+
+                addNotification({ type:'success', message: 'Profile updated successfully!' });
             }
         } catch (error) {
             addNotification({
