@@ -12,8 +12,9 @@
 
     &__Tripple {
         height: 220px;
+        max-width: 370px;
+        margin: 0 auto 110px;
         position: relative;
-        margin-bottom: 110px;
 
         @include mixins.after-mobile {
             height: 400px;
@@ -101,6 +102,9 @@
 
         width: 334px;
         height: 334px;
+
+        max-width: 100%;
+        max-height: 100vw;
 
         border-radius: 50%;
         border: 1px solid variables.$color-blue;

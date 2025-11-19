@@ -42,6 +42,9 @@
         background: variables.$color-deep-cove-dark;
         box-shadow: 0 0 113px 25px variables.$color-blue;
 
+        max-width: 100%;
+        max-height: 100vw;
+
         width: 349px;
         height: 349px;
 
@@ -72,6 +75,9 @@
         background: variables.$color-deep-cove-dark;
         box-shadow: 0 0 104px 23px variables.$color-blue;
 
+        max-width: 100%;
+        max-height: 100vw;
+        aspect-ratio: 1;
         width: 349px;
         height: 349px;
 
