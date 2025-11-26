@@ -93,7 +93,7 @@ export default function LoginFormComponent() {
                         setIsValid={ setIsValid }
                     />
                     <InputTextComponent
-                        placeholder="Password"
+                        label="Password"
                         id="password"
                         type="password"
                         forceValidate={ validateForm }
