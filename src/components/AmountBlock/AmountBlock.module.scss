@@ -11,6 +11,12 @@
         letter-spacing: -1px;
         margin: 21px auto 3px !important;
         text-shadow: none !important;
+
+        &_active {
+            b {
+                animation: blink 1.5s linear infinite;
+            }
+        }
     }
 
     &__Input {
@@ -19,5 +25,20 @@
         top: 0;
         opacity: 0;
         padding: 20px 0;
+    }
+}
+
+@keyframes blink {
+    0% {
+        opacity: .3;
+    }
+    33% {
+        opacity: 1;
+    }
+    66% {
+        opacity: 1;
+    }
+    100% {
+        opacity: .3;
     }
 }

@@ -21,7 +21,7 @@ export default function ProductCartComponent({ productData }) {
     const postOrder = async (item, qty) => {
         const requestData = {
             productIds: [item.documentId],
-            qty
+            qty: parseInt(qty)
         };
 
         const { data } = await fetchAPI('/orders', null, {
