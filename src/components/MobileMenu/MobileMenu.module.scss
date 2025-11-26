@@ -1,0 +1,25 @@
+@use '@/styles/abstract/variables';
+@use '@/styles/abstract/mixins';
+
+
+.MobileMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 100;
+    background: variables.$color-deep-cove-dark;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+
+    &__AvatarImageWrapper {
+        margin-bottom: 32px;
+    }
+
+    button {
+        margin-bottom: 39px;
+    }
+}
