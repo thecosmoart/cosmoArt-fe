@@ -3,12 +3,12 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 import {
     Header,
     Header__Right,
-    Header__Wrapper } from './Header.module.scss';
+    Header__Wrapper
+} from './Header.module.scss';
 
 import HeaderLinksComponent from '@/components/Header/HeaderLinks';
 import LogoComponent from '@/components/Logo';

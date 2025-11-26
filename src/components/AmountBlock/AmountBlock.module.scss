@@ -1,0 +1,23 @@
+@use '@/styles/abstract/variables';
+@use '@/styles/abstract/mixins';
+
+.AmountBlock {
+    position: relative;
+
+    &__Amount {
+        font-size: 5rem;
+        line-height: 5.6rem;
+        font-weight: variables.$fw-bold !important;
+        letter-spacing: -1px;
+        margin: 21px auto 3px !important;
+        text-shadow: none !important;
+    }
+
+    &__Input {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        opacity: 0;
+        padding: 20px 0;
+    }
+}

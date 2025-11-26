@@ -1,11 +1,13 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import {
     ProductCart
 } from './ProductCart.module.scss';
 
+import AmountBlockComponent from '@/components/AmountBlock';
 import { useUser } from '@/stores/User.store';
 import { fetchAPI } from '@/utils/api';
 import { browserStorage } from '@/utils/browserStorage';
@@ -13,10 +15,13 @@ import { browserStorage } from '@/utils/browserStorage';
 export default function ProductCartComponent({ productData }) {
     const { isLoggedIn } = useUser();
     const router = useRouter();
+    const isCustom = productData.custom;
+    const [qty, setQty] = useState(1);
 
-    const postOrder = async (item) => {
+    const postOrder = async (item, qty) => {
         const requestData = {
-            productIds: [item.documentId]
+            productIds: [item.documentId],
+            qty
         };
 
         const { data } = await fetchAPI('/orders', null, {
@@ -29,21 +34,22 @@ export default function ProductCartComponent({ productData }) {
         window.location.replace(data.url);
     };
 
-    const handleClick = (item) => {
+    const handleClick = (item, qty) => {
         if (!isLoggedIn) {
             return router.push('/login');
         }
 
-        postOrder(item);
+        postOrder(item, qty);
     };
     
     return (
         <div className={ ProductCart }>
-            <h3>{ productData.amount } generations</h3>
-            <h2>€ { productData.price.toFixed(0) }</h2>
-            <p>{ productData.amount } coin</p>
-            <p>1 coin = { (productData.price / parseInt(productData.amount)).toFixed(2) } ¢</p>
-            <button onClick={ () => handleClick(productData) }>Buy Now</button>
+            <h3>{ isCustom && 'Enter your amount' || `${ productData.amount } generations` }</h3>
+            <h2>{ isCustom && <AmountBlockComponent setQty={ setQty }/> || `€ ${productData.price.toFixed(0)}` }</h2>
+            { !isCustom && <p>{ productData.amount } coin</p> }
+            <p>1 coin = { (productData.price / parseInt(productData.amount)).toFixed(2) } €</p>
+            { isCustom && (<p>Enter amount, get coins</p>) }
+            <button onClick={ () => handleClick(productData, qty) }>Buy Now</button>
         </div>
     );
 }
